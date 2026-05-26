@@ -4,6 +4,7 @@ import csd230.s26.lab1.pojos.SaleableItem;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +29,12 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
     // Getters and Setters
     public String getProductId() { return productId; }
     public void setProductId(String productId) { this.productId = productId; }
+
+    @ManyToMany(mappedBy = "products")
+    private Set<CartEntity> carts = new java.util.HashSet<>();
+
+    public Set<CartEntity> getCarts() { return carts; }
+    public void setCarts(Set<CartEntity> carts) { this.carts = carts; }
 
     @Override
     public boolean equals(Object o) {
